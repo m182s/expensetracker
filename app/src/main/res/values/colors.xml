@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Navy">#1B3B6F</color>
+    <color name="Darker">#21295C</color>
+    <color name="Midder">#1C7293</color>
+    <color name="Mid">#065A82</color>
+    <color name="Gray">#9EB3C2</color>
+    <color name="Dar">#16425B</color>
+    <color name="Lightest">#81C3D7</color>
+    <color name="light">#3A7CA5</color>
+    <color name="dum">#29335c</color>
+    <color name="dardar">#14213d</color>
+    <color name="porbu">#22223b</color>
+    <color name="ashpor">#4a4e69</color>
+    <color name="bsdka">#6096ba</color>
+    <color name="as">#324a5f</color>
+    <color name="q">#1b2a41</color>
+</resources>

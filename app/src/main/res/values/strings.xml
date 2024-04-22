@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">homepage</string>
+    <string name="hello">Hello</string>
+    <string name="paul">Paul</string>
+    <string name="what_did_you_buy">What did you buy?</string>
+    <string name="settings">Settings</string>
+    <string name="save">Save money.</string>
+    <string name="log">Log</string>
+    <string name="log1">Log</string>
+    <string name="log2">Log</string>
+    <string name="total">Total:</string>
+</resources>
