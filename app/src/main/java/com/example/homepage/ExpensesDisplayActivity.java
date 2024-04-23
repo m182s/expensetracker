@@ -1,37 +1,27 @@
 package com.example.homepage;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.ClipData;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ExpensesDisplayActivity extends AppCompatActivity {
-    ListView AddedItems;
+    RecyclerView recyclerView;
     TextView textChange;
-    List<ItemInfo> itemsList;
-    ArrayAdapter<ItemInfo> ItemsAdapter;
+    ArrayList<ItemInfo> itemsList;
+    //ArrayAdapter<ItemInfo> ItemsAdapter;
+    MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
     Expenses sharedData, expenses;
     int total = 0;
@@ -56,28 +46,28 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 //        itemsList.clear();
 //        itemsList.addAll(sharedData.itemInfoList);
 //        ItemsAdapter.notifyDataSetChanged();
-        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){ //remove
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
-                new AlertDialog.Builder(ExpensesDisplayActivity.this)
-                        .setTitle("Are you sure you want to remove " + itemsList.get(listremove) + "?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog1, int which) {
-                                itemsList.remove(listremove);
-                                ItemsAdapter.notifyDataSetChanged();
-                                Log.v("item", "item removed");
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog2, int which) {
-                                dialog2.dismiss();
-                            }
-                        }).create().show();
-
-                return false;
-            }
-        });
+//        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){ //remove
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
+//                new AlertDialog.Builder(ExpensesDisplayActivity.this)
+//                        .setTitle("Are you sure you want to remove " + itemsList.get(listremove) + "?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog1, int which) {
+//                                itemsList.remove(listremove);
+//                                ItemsAdapter.notifyDataSetChanged();
+//                                Log.v("item", "item removed");
+//                            }
+//                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog2, int which) {
+//                                dialog2.dismiss();
+//                            }
+//                        }).create().show();
+//
+//                return false;
+//            }
+//        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +85,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         });
 
         // adds the item and price into the log
-        AddedItems = findViewById(R.id.budgetloglist);
+        recyclerView = findViewById(R.id.budgetloglist);
 
 
         myStorage = new MySharedPreferences(getApplicationContext());
@@ -105,31 +95,33 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
         itemsList.addAll(expenses.itemInfoList);
 
-        ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsList);
-        AddedItems.setAdapter(ItemsAdapter);
+//        ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsList);
+        ItemsAdapter = new MyListAdapter(getApplicationContext(),itemsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(ItemsAdapter);
 
-        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
-                new AlertDialog.Builder(ExpensesDisplayActivity.this)
-                        .setTitle("Are you sure you want to remove " + itemsList.get(listremove) + "?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog1, int which) {
-                                itemsList.remove(listremove);
-                                ItemsAdapter.notifyDataSetChanged();
-                                Log.v("item", "item removed");
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog2, int which) {
-                                dialog2.dismiss();
-                            }
-                        }).create().show();
-
-                return false;
-            }
-        });
+//        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
+//                new AlertDialog.Builder(ExpensesDisplayActivity.this)
+//                        .setTitle("Are you sure you want to remove " + itemsList.get(listremove) + "?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog1, int which) {
+//                                itemsList.remove(listremove);
+//                                ItemsAdapter.notifyDataSetChanged();
+//                                Log.v("item", "item removed");
+//                            }
+//                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog2, int which) {
+//                                dialog2.dismiss();
+//                            }
+//                        }).create().show();
+//
+//                return false;
+//            }
+//        });
 
 
     }

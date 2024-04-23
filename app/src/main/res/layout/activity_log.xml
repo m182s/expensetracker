@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/budgetview"
         app:layout_constraintVertical_bias="1.2" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/budgetloglist"
         android:layout_width="match_parent"
         android:layout_height="573dp"
@@ -68,7 +68,8 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@drawable/search_ic"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textView2"
