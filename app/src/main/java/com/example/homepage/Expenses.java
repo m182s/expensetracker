@@ -10,6 +10,10 @@ public class Expenses {
     public Expenses() {
         itemInfoList = new ArrayList<>();
     }
+    public Expenses(List<ItemInfo> items) {
+        itemInfoList = items;
+    }
+
 
     // Method to add an ItemInfo to the list
     public void addItemInfo(ItemInfo itemInfo) {
@@ -42,6 +46,16 @@ public class Expenses {
         return resultList;
     }
 
+    public List<ItemInfo> searchbyCategory(int category) {
+        List<ItemInfo> resultList = new ArrayList<>();
+        for (ItemInfo itemInfo : itemInfoList) {
+            if (itemInfo.getCategory()==category) {
+                resultList.add(itemInfo);
+            }
+        }
+        return resultList;
+    }
+
     // Method to search for ItemInfos by remarks
     public List<ItemInfo> searchByRemarks(String remarks) {
         List<ItemInfo> resultList = new ArrayList<>();
@@ -51,5 +65,10 @@ public class Expenses {
             }
         }
         return resultList;
+    }
+
+    public int getItemsCount()
+    {
+        return itemInfoList.size();
     }
 }

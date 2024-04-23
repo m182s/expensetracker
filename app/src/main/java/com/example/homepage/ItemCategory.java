@@ -1,8 +1,9 @@
 package com.example.homepage;
 
 public enum ItemCategory {
-    Uncategorized,
+    All,
+    Travel,
     Food,
     Fashion,
-    Travel
+    Uncategorized
 }

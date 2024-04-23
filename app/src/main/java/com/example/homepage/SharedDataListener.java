@@ -1,6 +1,8 @@
 package com.example.homepage;
 
-public interface SharedDataListener {
+import java.io.Serializable;
+
+public interface SharedDataListener extends Serializable {
     Expenses getSharedData();
     void setSharedData(Expenses value);
 }

@@ -20,7 +20,7 @@
         android:text="Total Spent: Php "
         android:textAlignment="center"
         android:textColor="@color/dum"
-        android:textSize="17dp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -29,21 +29,29 @@
         app:layout_constraintVertical_bias="0.94" />
 
     <Spinner
-        android:layout_width="match_parent"
+        android:id="@+id/spinnerid"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"/>
+        android:background="@drawable/expenselog_"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/budgetloglist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budgetview"
+        app:layout_constraintVertical_bias="1.2" />
 
     <ListView
         android:id="@+id/budgetloglist"
         android:layout_width="match_parent"
         android:layout_height="573dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/totalamount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/dum"
+        android:paddingTop="30dp"
+        android:paddingBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budgetview"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.512"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/budgetview"
@@ -52,9 +60,8 @@
         android:background="@drawable/expenselog_"
         android:padding="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <ImageView
             android:id="@+id/backbutton"

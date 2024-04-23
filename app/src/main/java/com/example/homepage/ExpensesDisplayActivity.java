@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +32,12 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
     TextView textChange;
     List<ItemInfo> itemsList;
     ArrayAdapter<ItemInfo> ItemsAdapter;
-
-    Expenses sharedData;
+    Spinner ExpenseSpinner;
+    Expenses sharedData, expenses;
     int total = 0;
     int sumPesos;
+    MySharedPreferences myStorage;
+
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -48,13 +51,12 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         setTextChange();
 
         // converts the JSON String back to ArrayList<Map<String, String>>
-        ArrayList<Map<String, String>> tempitemsList;
-        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
-        itemsList.clear();
-        itemsList.addAll(sharedData.itemInfoList);
-        ItemsAdapter.notifyDataSetChanged();
-
-        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+       // ArrayList<Map<String, String>> tempitemsList;
+//        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
+//        itemsList.clear();
+//        itemsList.addAll(sharedData.itemInfoList);
+//        ItemsAdapter.notifyDataSetChanged();
+        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){ //remove
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
                 new AlertDialog.Builder(ExpensesDisplayActivity.this)
@@ -84,6 +86,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
         // first iteration of the total price
         setTextChange();
+        ArrayListCustomization();
 
         // back button
         findViewById(R.id.backbutton).setOnClickListener(v -> {
@@ -93,17 +96,14 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
         // adds the item and price into the log
         AddedItems = findViewById(R.id.budgetloglist);
-        sharedData = ((SharedDataListener) getApplication()).getSharedData();
-
-//        ArrayList<Map<String, String>> tempitemsList;
-        itemsList.addAll(sharedData.itemInfoList);
 
 
-//        itemsList = new ArrayList<Map<String, String>>();
-//        String jsonData = getIntent().getStringExtra("receiveKey");
-//        ArrayList<Map<String, String>> tempitemsList;
-//        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
-//        itemsList.addAll(tempitemsList);
+        myStorage = new MySharedPreferences(getApplicationContext());
+        //get List and create expense handler
+        expenses = new Expenses((List<ItemInfo>) myStorage.getMyList());
+        itemsList = new ArrayList<>();
+
+        itemsList.addAll(expenses.itemInfoList);
 
         ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsList);
         AddedItems.setAdapter(ItemsAdapter);
@@ -131,6 +131,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     public void setTextChange(){
@@ -139,5 +140,41 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         textChange = findViewById(R.id.totalamount);
         textChange.setText("Total Spent: Php " + total);
         Log.v("w", "Total" + total);
+    }
+
+    public void ArrayListCustomization(){
+        ExpenseSpinner = findViewById(R.id.spinnerid);
+        ArrayList<String> category = new ArrayList<>();
+        category.add("All");
+        category.add("Travel");
+        category.add("Food");
+        category.add("Fashion");
+        category.add("Others");
+
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category);
+        ExpenseSpinner.setAdapter(categoryAdapter);
+
+        ExpenseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedItem = (String) parentView.getItemAtPosition(position);
+                Log.v("Pos", "Position: " + position);
+                //itemsList = expenses.searchbyCategory(position);
+                Log.v("itemsList", "Number: " + itemsList);
+                List<ItemInfo> tmpList = expenses.searchbyCategory(position);
+                Log.v("itemsList", "Search: " + tmpList);
+                //ItemsAdapter.clear();
+                //ItemsAdapter.addAll(expenses.searchbyCategory(position));
+                //ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, expenses.searchbyCategory(position));
+                itemsList.clear();
+                itemsList.addAll(tmpList);
+                ItemsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
     }
 }

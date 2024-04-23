@@ -1,13 +1,16 @@
 package com.example.homepage;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,17 +26,13 @@ import java.util.Map;
         - Mapping (DONE)
         - back button (DONE)
         - Add more than one input (DONE)
-        - Total price (DONE)
         - Try again after failed attempt (DONE)
-        - Delete logs (HALF DONE)
         - rewrite code into functions for simplicity (DONE)
-        - Dropdown for the different categories
-        - Smart fill feature
-        - Database
-            - Food, Item, Travel, Others Categories
-            - Log Database
-        - The previous day Log
-        - Daily, Weekly, Monthly Budget
+        - Dropdown for the different categories (DONE)
+        - Filter through category (DONE)
+        - Total price
+        - Delete logs
+        - List estitik
          */
 
 public class ItemEntryActivity extends AppCompatActivity {
@@ -43,12 +42,27 @@ public class ItemEntryActivity extends AppCompatActivity {
     private ArrayList<Map<String, String>> itemsList;
     int sumPesos;
 
+    Spinner ExpenseSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adder);
         storeIdVar();
         itemsList = new ArrayList<Map<String, String>>();
+        ExpenseSpinner = findViewById(R.id.selectcategory);
+
+        ArrayList<String> category = new ArrayList<>();
+        category.add("Travel");
+        category.add("Food");
+        category.add("Fashion");
+        category.add("Others");
+
+        ExpenseSpinner.setSelection(3);
+
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category);
+        ExpenseSpinner.setAdapter(categoryAdapter);
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +87,11 @@ public class ItemEntryActivity extends AppCompatActivity {
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
+//                    } else if (){
+//                        CharSequence text = "Pick a category!";
+//                        int duration = Toast.LENGTH_SHORT;
+//                        Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
+//                        toast.show();
 
                     } else if (sumPesos <= 0) {
                         CharSequence text = "Enter a price!";
@@ -94,15 +113,24 @@ public class ItemEntryActivity extends AppCompatActivity {
                         toast.show();
                         // Adds data
 
-//                        Expenses sharedData = ((SharedDataListener) getApplication()).getSharedData();
-//                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now(), "");
-//                        sharedData.addItemInfo(itemInfo);
+                        MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
+                        //get List and create expense handler
+//                        myStorage.clearMyList();
+//                        return;
+
+                        Expenses expenses = new Expenses(myStorage.getMyList());
+                        Log.v("Spinner", "Input: " + ExpenseSpinner.getSelectedItemPosition());
+                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
+                        expenses.addItemInfo(itemInfo);
+                        Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
+                        myStorage.saveMyList(expenses.itemInfoList);
 
 
-                        String jsonData = new Gson().toJson(itemsList);
+
+//                        String jsonData = new Gson().toJson(itemsList);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-                        intent.putExtra("receiveKey", jsonData);
-                        intent.putExtra("itemPrice", sumPesos);
+//                        intent.putExtra("receiveKey", jsonData);
+//                        intent.putExtra("itemPrice", sumPesos);
                         startActivity(intent);
                     }
                 }
