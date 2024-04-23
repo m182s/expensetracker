@@ -10,18 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity implements SharedDataListener {
+public class MainActivity extends AppCompatActivity {
     public Expenses _itemLists;
 
-    @Override
-    public Expenses getSharedData() {
-        return _itemLists;
-    }
 
-    @Override
-    public void setSharedData(Expenses value) {
-        _itemLists = value;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

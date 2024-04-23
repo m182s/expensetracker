@@ -10,6 +10,10 @@ public class Expenses {
     public Expenses() {
         itemInfoList = new ArrayList<>();
     }
+    public Expenses(List<ItemInfo> items) {
+        itemInfoList = items;
+    }
+
 
     // Method to add an ItemInfo to the list
     public void addItemInfo(ItemInfo itemInfo) {
@@ -51,5 +55,10 @@ public class Expenses {
             }
         }
         return resultList;
+    }
+
+    public int getItemsCount()
+    {
+        return itemInfoList.size();
     }
 }

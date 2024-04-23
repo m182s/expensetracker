@@ -1,6 +1,7 @@
 package com.example.homepage;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -94,15 +95,21 @@ public class ItemEntryActivity extends AppCompatActivity {
                         toast.show();
                         // Adds data
 
-//                        Expenses sharedData = ((SharedDataListener) getApplication()).getSharedData();
-//                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now(), "");
-//                        sharedData.addItemInfo(itemInfo);
+                        MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
+                        //get List and create expense handler
+                        Expenses expenses = new Expenses(myStorage.getMyList());
+
+                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now(), "Sample");
+                        expenses.addItemInfo(itemInfo);
+                        Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
+                        myStorage.saveMyList(expenses.itemInfoList);
 
 
-                        String jsonData = new Gson().toJson(itemsList);
+
+//                        String jsonData = new Gson().toJson(itemsList);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-                        intent.putExtra("receiveKey", jsonData);
-                        intent.putExtra("itemPrice", sumPesos);
+//                        intent.putExtra("receiveKey", jsonData);
+//                        intent.putExtra("itemPrice", sumPesos);
                         startActivity(intent);
                     }
                 }

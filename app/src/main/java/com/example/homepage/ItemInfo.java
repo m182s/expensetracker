@@ -1,5 +1,7 @@
 package com.example.homepage;
 
+import com.google.gson.Gson;
+
 import java.time.LocalDateTime;
 
 public class ItemInfo {
@@ -57,5 +59,12 @@ public class ItemInfo {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    @Override
+    public String toString()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

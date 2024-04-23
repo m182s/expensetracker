@@ -93,19 +93,14 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
         // adds the item and price into the log
         AddedItems = findViewById(R.id.budgetloglist);
-        sharedData = ((SharedDataListener) getApplication()).getSharedData();
-
-//        ArrayList<Map<String, String>> tempitemsList;
-        itemsList.addAll(sharedData.itemInfoList);
 
 
-//        itemsList = new ArrayList<Map<String, String>>();
-//        String jsonData = getIntent().getStringExtra("receiveKey");
-//        ArrayList<Map<String, String>> tempitemsList;
-//        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
-//        itemsList.addAll(tempitemsList);
+        MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
+        //get List and create expense handler
+        Expenses expenses = new Expenses(myStorage.getMyList());
 
-        ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsList);
+
+        ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, expenses.itemInfoList);
         AddedItems.setAdapter(ItemsAdapter);
 
         AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
