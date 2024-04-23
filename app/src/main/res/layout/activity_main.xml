@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:background="@drawable/header"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/backbtn"
+            app:tint="@color/white"
+            app:srcCompat="@drawable/arrow_back"
+            android:contentDescription="@string/app_name"
+            tools:layout_editor_absoluteX="219dp"
+            tools:layout_editor_absoluteY="14dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/dropdown"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:cardBackgroundColor="@color/light"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:text="@string/select_category"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10sp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="343dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/item"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="106dp"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="343dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:text="@string/price"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="106dp"
+        tools:ignore="LabelFor" />
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="1dp"
+            android:src="@drawable/scan_ic"
+            android:padding="1dp"
+            android:contentDescription="@string/app_name"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:layout_marginStart="0dp"/>
+        </LinearLayout>
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:text="@string/history"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/dum"/>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="horizontal"
+        android:padding="3dp">
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="horizontal"
+        android:padding="3dp">
+    </LinearLayout>
+
+</LinearLayout>
