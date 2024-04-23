@@ -1,5 +1,6 @@
 package com.example.homepage;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +39,7 @@ import java.util.Map;
 public class ItemEntryActivity extends AppCompatActivity {
 
     private TextView item, price;
-    private Button add, log;
+    private Button add, log, home;
     private ArrayList<Map<String, String>> itemsList;
     int sumPesos;
 
@@ -45,7 +48,6 @@ public class ItemEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adder);
         storeIdVar();
-
         itemsList = new ArrayList<Map<String, String>>();
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +93,17 @@ public class ItemEntryActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
                         // Adds data
+
+//                        Expenses sharedData = ((SharedDataListener) getApplication()).getSharedData();
+//                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now(), "");
+//                        sharedData.addItemInfo(itemInfo);
+
+
                         String jsonData = new Gson().toJson(itemsList);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
                         intent.putExtra("receiveKey", jsonData);
                         intent.putExtra("itemPrice", sumPesos);
-//                      startActivity(intent);
+                        startActivity(intent);
                     }
                 }
             }
@@ -111,11 +119,21 @@ public class ItemEntryActivity extends AppCompatActivity {
                 });
             }
         });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.homeId).setOnClickListener(v -> {
+                    Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
+                    startActivity(intent);
+                });
+            }
+        });
     }
     public void storeIdVar(){
         item = findViewById(R.id.itemId);
         price = findViewById(R.id.priceId);
         add = findViewById(R.id.addId);
         log = findViewById(R.id.logId);
+        home = findViewById(R.id.homeId);
     }
 }

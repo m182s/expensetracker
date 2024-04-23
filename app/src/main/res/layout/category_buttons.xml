@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dum"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categories"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.051"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.057" />
+
+    <Button
+        android:id="@+id/travelid"
+        android:layout_width="328dp"
+        android:layout_height="86dp"
+        android:theme="@style/AppTheme"
+        android:text="Travel"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/foodid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/fashionid"
+        android:layout_width="328dp"
+        android:layout_height="86dp"
+        android:theme="@style/AppTheme"
+        android:text="Fashion"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/uncatId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.846" />
+
+    <Button
+        android:id="@+id/uncatId"
+        android:layout_width="328dp"
+        android:layout_height="86dp"
+        android:theme="@style/AppTheme"
+        android:text="Others"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.874" />
+
+    <Button
+        android:id="@+id/foodid"
+        android:layout_width="328dp"
+        android:layout_height="86dp"
+        android:theme="@style/AppTheme"
+        android:text="Food"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/fashionid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.781" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

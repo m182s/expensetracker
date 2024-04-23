@@ -1,6 +1,7 @@
 package com.example.homepage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -28,8 +29,10 @@ import java.util.Map;
 public class ExpensesDisplayActivity extends AppCompatActivity {
     ListView AddedItems;
     TextView textChange;
-    ArrayList<Map<String, String>> itemsList;
-    ArrayAdapter<Map<String, String>> ItemsAdapter;
+    List<ItemInfo> itemsList;
+    ArrayAdapter<ItemInfo> ItemsAdapter;
+
+    Expenses sharedData;
     int total = 0;
     int sumPesos;
 
@@ -48,7 +51,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         ArrayList<Map<String, String>> tempitemsList;
         tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
         itemsList.clear();
-        itemsList.addAll(tempitemsList);
+        itemsList.addAll(sharedData.itemInfoList);
         ItemsAdapter.notifyDataSetChanged();
 
         AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
@@ -74,7 +77,6 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,18 +87,23 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
         // back button
         findViewById(R.id.backbutton).setOnClickListener(v -> {
-            Intent intent = new Intent(ExpensesDisplayActivity.this, MainActivity.class);
+            Intent intent = new Intent(ExpensesDisplayActivity.this, ItemEntryActivity.class);
             startActivity(intent);
         });
 
         // adds the item and price into the log
         AddedItems = findViewById(R.id.budgetloglist);
+        sharedData = ((SharedDataListener) getApplication()).getSharedData();
 
-        itemsList = new ArrayList<Map<String, String>>();
-        String jsonData = getIntent().getStringExtra("receiveKey");
-        ArrayList<Map<String, String>> tempitemsList;
-        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
-        itemsList.addAll(tempitemsList);
+//        ArrayList<Map<String, String>> tempitemsList;
+        itemsList.addAll(sharedData.itemInfoList);
+
+
+//        itemsList = new ArrayList<Map<String, String>>();
+//        String jsonData = getIntent().getStringExtra("receiveKey");
+//        ArrayList<Map<String, String>> tempitemsList;
+//        tempitemsList = new Gson().fromJson(jsonData, new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType());
+//        itemsList.addAll(tempitemsList);
 
         ItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsList);
         AddedItems.setAdapter(ItemsAdapter);
@@ -111,7 +118,6 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog1, int which) {
                                 itemsList.remove(listremove);
                                 ItemsAdapter.notifyDataSetChanged();
-
                                 Log.v("item", "item removed");
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {

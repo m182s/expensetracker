@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Expenses {
-    private List<ItemInfo> itemInfoList;
+    public List<ItemInfo> itemInfoList;
 
     // Constructor
     public Expenses() {
