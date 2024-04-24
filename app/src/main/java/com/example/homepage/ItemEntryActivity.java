@@ -41,8 +41,10 @@ public class ItemEntryActivity extends AppCompatActivity {
     private Button add, log, home;
     private ArrayList<Map<String, String>> itemsList;
     int sumPesos;
-
+    MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
+
+    MySharedPreferences myStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +89,6 @@ public class ItemEntryActivity extends AppCompatActivity {
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
-//                    } else if (){
-//                        CharSequence text = "Pick a category!";
-//                        int duration = Toast.LENGTH_SHORT;
-//                        Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
-//                        toast.show();
-
                     } else if (sumPesos <= 0) {
                         CharSequence text = "Enter a price!";
                         int duration = Toast.LENGTH_SHORT;
@@ -112,25 +108,15 @@ public class ItemEntryActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
                         // Adds data
-
                         MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
-                        //get List and create expense handler
-//                        myStorage.clearMyList();
-//                        return;
-
                         Expenses expenses = new Expenses(myStorage.getMyList());
                         Log.v("Spinner", "Input: " + ExpenseSpinner.getSelectedItemPosition());
                         ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
                         expenses.addItemInfo(itemInfo);
                         Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
                         myStorage.saveMyList(expenses.itemInfoList);
-
-
-
-//                        String jsonData = new Gson().toJson(itemsList);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-//                        intent.putExtra("receiveKey", jsonData);
-//                        intent.putExtra("itemPrice", sumPesos);
+
                         startActivity(intent);
                     }
                 }
@@ -140,9 +126,7 @@ public class ItemEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findViewById(R.id.logId).setOnClickListener(v -> {
-                    String jsonData = new Gson().toJson(itemsList);
                     Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-                    intent.putExtra("receiveKey", jsonData);
                     startActivity(intent);
                 });
             }

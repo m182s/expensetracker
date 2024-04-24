@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budgetview"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintVertical_bias="0.91" />
 
     <Spinner
         android:id="@+id/spinnerid"
@@ -43,15 +43,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/budgetloglist"
-        android:layout_width="match_parent"
-        android:layout_height="573dp"
+        android:layout_width="412dp"
+        android:layout_height="477dp"
         android:backgroundTint="@color/dum"
+        android:paddingStart="30dp"
         android:paddingTop="30dp"
+        android:paddingEnd="30dp"
         android:paddingBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budgetview"
-        app:layout_constraintVertical_bias="0.512"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/budgetview"
@@ -88,5 +91,17 @@
             app:layout_constraintVertical_bias="0.6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/deletelogs"
+        android:layout_width="144dp"
+        android:layout_height="34dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalamount"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

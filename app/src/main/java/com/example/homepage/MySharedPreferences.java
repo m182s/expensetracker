@@ -4,6 +4,7 @@ package com.example.homepage;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,10 +18,12 @@ public class MySharedPreferences {
     private static final String KEY_MY_LIST = "myList";
 
     private SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editPref;
     private Gson gson;
 
     public MySharedPreferences(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editPref = sharedPreferences.edit();
         gson = new Gson();
     }
 
@@ -44,7 +47,8 @@ public class MySharedPreferences {
         Log.v("WOrked", "Task: " + json);
         if (json != null && !json.isEmpty()) {
             Log.v("WOrked", "worked 2: " + json);
-            Type type = new TypeToken<List<ItemInfo>>(){}.getType();
+            Type type = new TypeToken<List<ItemInfo>>() {
+            }.getType();
             return gson.fromJson(json, type);
         }
         return new ArrayList<>(); // Return empty list if no data found

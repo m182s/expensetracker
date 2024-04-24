@@ -10,7 +10,6 @@ public class ItemInfo {
     private int price;
     private String dateTime;
     private String remarks;
-
     private int category;
 
     // Constructor
