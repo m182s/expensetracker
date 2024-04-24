@@ -20,6 +20,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         this._context = context;
         this._itemList = itemList;
     }
+
+    public void setDataList(ArrayList<ItemInfo> itemList)
+    {
+        this._itemList = itemList;
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -42,4 +47,5 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
     {
         return _itemList.size();
     }
+
 }

@@ -49,11 +49,12 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        myStorage = new MySharedPreferences(getApplicationContext());
+        //myStorage = new MySharedPreferences(getApplicationContext());
         expenses.itemInfoList.clear();
         expenses.itemInfoList.addAll((List<ItemInfo>) myStorage.getMyList());
         itemsList.clear();
         itemsList.addAll(expenses.itemInfoList);
+        ItemsAdapter.setDataList(itemsList);
         ItemsAdapter.notifyDataSetChanged();
         Log.v("List", "NEW LIST: " + itemsList);
     }
