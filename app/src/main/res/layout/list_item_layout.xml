@@ -17,7 +17,8 @@
         android:layout_width="92dp"
         android:layout_height="43dp"
         android:layout_gravity="bottom"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textAppearance="?android:textAppearanceLarge"
+        />
 
     <ImageView
         android:id="@+id/del_icon"

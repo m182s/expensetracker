@@ -2,7 +2,9 @@ package com.example.homepage;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
-public class ExpensesDisplayActivity extends AppCompatActivity {
+public class ExpensesDisplayActivity extends AppCompatActivity implements DeleteListener{
 
 
     RecyclerView recyclerView;
@@ -75,12 +77,10 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.budgetloglist);
         myStorage = new MySharedPreferences(getApplicationContext());
 
-        //get List and create expense handler
-        expenses = new Expenses((List<ItemInfo>) myStorage.getMyList());
         itemsList = new ArrayList<>();
-
-        itemsList.addAll(expenses.itemInfoList);
-        ItemsAdapter = new MyListAdapter(getApplicationContext(),itemsList);
+        //get List and create expense handler
+        reloadFromStorage();
+        ItemsAdapter = new MyListAdapter(getApplicationContext(),itemsList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(ItemsAdapter);
 
@@ -91,16 +91,46 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
 //        new MySharedPreferences().putString
 
+        Button removeAllButton  = findViewById(R.id.deleteall);
+        removeAllButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // 1. Instantiate an AlertDialog.Builder with its constructor.
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+// 2. Chain together various setter methods to set the dialog characteristics.
+                builder.setMessage("Are you sure you want to clear all record?")
+                        .setTitle("Delete All Record")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                myStorage.clearMyList();
+                                reloadFromStorage();
+                                refreshDisplay();
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancels the dialog.
+                            }
+                        })
+                ;
+
+                // 3. Get the AlertDialog.
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
         //delete button
         removeData = findViewById(R.id.showdeleteicon);
         removeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ItemsAdapter.showDeleteIcon();
-                recyclerView.setAdapter(null);
-                recyclerView.getRecycledViewPool().clear();
-                recyclerView.setAdapter(ItemsAdapter);
-                ItemsAdapter.notifyDataSetChanged();
+                refreshDisplay();
                 Log.v("Icon", "Icon added");
 
 //                myStorage.clearMyList();
@@ -167,5 +197,29 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onDelete(int position)
+    {
+        ItemInfo delItemInfo= itemsList.get(position);
+        itemsList.remove(position);
+        expenses.itemInfoList = myStorage.removeDataFromSharedPreferences(delItemInfo);
+        refreshDisplay();
+    }
+
+    public void refreshDisplay()
+    {
+        recyclerView.setAdapter(null);
+        recyclerView.getRecycledViewPool().clear();
+        recyclerView.setAdapter(ItemsAdapter);
+        ItemsAdapter.notifyDataSetChanged();
+    }
+
+    public void reloadFromStorage()
+    {
+        expenses = new Expenses((List<ItemInfo>) myStorage.getMyList());
+        itemsList.clear();
+        itemsList.addAll(expenses.itemInfoList);
     }
 }
