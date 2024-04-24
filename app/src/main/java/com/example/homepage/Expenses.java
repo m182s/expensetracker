@@ -1,10 +1,14 @@
 package com.example.homepage;
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Expenses {
     public List<ItemInfo> itemInfoList;
+
+    public MySharedPreferences myShared;
 
     // Constructor
     public Expenses() {
@@ -34,7 +38,6 @@ public class Expenses {
         }
         return null; // ID not found
     }
-
     // Method to search for ItemInfos by itemName
     public List<ItemInfo> searchByItemName(String itemName) {
         List<ItemInfo> resultList = new ArrayList<>();
@@ -45,7 +48,6 @@ public class Expenses {
         }
         return resultList;
     }
-
     public List<ItemInfo> searchbyCategory(int category) {
         List<ItemInfo> resultList = new ArrayList<>();
         for (ItemInfo itemInfo : itemInfoList) {
@@ -66,11 +68,6 @@ public class Expenses {
         }
         return resultList;
     }
-
-//    public void addItem(String itemName, double itemPrice) {
-//        ExpenseItem newItem = new ExpenseItem(itemName, itemPrice);
-//        expenseList.add(newItem);
-//    }
     public double calculateTotal() {
         double price = 0;
         for (ItemInfo priceList : itemInfoList) {
@@ -78,15 +75,6 @@ public class Expenses {
         }
         return price;
     }
-
-
-//    public int calculatePrice(int newPrice) {
-//        for (ItemInfo itemInfo : itemInfoList) {
-//            newPrice = totalPrice += itemInfo.getPrice();
-//            }
-//        return newPrice;
-//    }
-
     public int getItemsCount()
     {
         return itemInfoList.size();

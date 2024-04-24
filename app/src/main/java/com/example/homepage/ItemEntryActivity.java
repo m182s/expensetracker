@@ -30,9 +30,11 @@ import java.util.Map;
         - rewrite code into functions for simplicity (DONE)
         - Dropdown for the different categories (DONE)
         - Filter through category (DONE)
-        - Total price
+        - Total price (DONE)
+        - List estitik (DONE)
         - Delete logs
-        - List estitik
+        - all categories
+
          */
 
 public class ItemEntryActivity extends AppCompatActivity {
@@ -60,7 +62,7 @@ public class ItemEntryActivity extends AppCompatActivity {
         category.add("Fashion");
         category.add("Others");
 
-        ExpenseSpinner.setSelection(3);
+        ExpenseSpinner.setSelection(0);
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category);
         ExpenseSpinner.setAdapter(categoryAdapter);
@@ -111,12 +113,13 @@ public class ItemEntryActivity extends AppCompatActivity {
                         MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
                         Expenses expenses = new Expenses(myStorage.getMyList());
                         Log.v("Spinner", "Input: " + ExpenseSpinner.getSelectedItemPosition());
-                        ItemInfo itemInfo = new ItemInfo(1, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
+                        int lastID = myStorage.getLastId();
+                        ItemInfo itemInfo = new ItemInfo(lastID, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
                         expenses.addItemInfo(itemInfo);
                         Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
                         myStorage.saveMyList(expenses.itemInfoList);
+                        myStorage.saveLastId(lastID + 1);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-                        startActivity(intent);
                     }
                 }
             }
@@ -134,7 +137,7 @@ public class ItemEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findViewById(R.id.homeId).setOnClickListener(v -> {
-                    Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
+                    Intent intent = new Intent(ItemEntryActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
             }

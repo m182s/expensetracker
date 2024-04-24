@@ -63,9 +63,6 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log);
 
         // total price
-
-
-
         ArrayListCustomization();
 
         // back button
@@ -77,6 +74,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         // adds the item and price into the log
         recyclerView = findViewById(R.id.budgetloglist);
         myStorage = new MySharedPreferences(getApplicationContext());
+
         //get List and create expense handler
         expenses = new Expenses((List<ItemInfo>) myStorage.getMyList());
         itemsList = new ArrayList<>();
@@ -85,6 +83,11 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         ItemsAdapter = new MyListAdapter(getApplicationContext(),itemsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(ItemsAdapter);
+
+//        List<ItemInfo> assignCat = expenses.mainCategory(0);
+//        itemsList.clear();
+//        itemsList.addAll(assignCat);
+//        ItemsAdapter.notifyDataSetChanged();
 
 //        new MySharedPreferences().putString
 
@@ -105,33 +108,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
             }
         });
-
-//        AddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listremove, long l){
-//                new AlertDialog.Builder(ExpensesDisplayActivity.this)
-//                        .setTitle("Are you sure you want to remove " + itemsList.get(listremove) + "?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog1, int which) {
-//                                itemsList.remove(listremove);
-//                                ItemsAdapter.notifyDataSetChanged();
-//                                Log.v("item", "item removed");
-//                            }
-//                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog2, int which) {
-//                                dialog2.dismiss();
-//                            }
-//                        }).create().show();
-//
-//                return false;
-//            }
-//        });
-
-
     }
-
     public void calculateTotalPrice(){
         double total = expenses.calculateTotal();
         textChange.setText("Total Spent: Php " + total);
@@ -159,9 +136,14 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         ExpenseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //stores the category of the items selected
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selectedItem = (String) parentView.getItemAtPosition(position);
-                Log.v("itemsList", "Number: " + itemsList);
-                List<ItemInfo> tmpList = expenses.searchbyCategory(position);
+                List<ItemInfo> tmpList;
+
+                if(position == 0){
+                    tmpList = expenses.itemInfoList;
+                }
+                else {
+                    tmpList = expenses.searchbyCategory(position);
+                }
                 Log.v("itemsList", "Search: " + tmpList);
                 itemsList.clear();
                 itemsList.addAll(tmpList);
@@ -170,6 +152,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
                 textChange = findViewById(R.id.totalamount);
                 textChange.setText(changeText);
                 ItemsAdapter.notifyDataSetChanged();
+
             }
 
             @Override

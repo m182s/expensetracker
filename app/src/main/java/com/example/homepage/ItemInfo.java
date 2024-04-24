@@ -23,7 +23,6 @@ public class ItemInfo {
     }
 
 
-
     // Getters and setters
 
     public int getCategory() {

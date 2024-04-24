@@ -17,6 +17,9 @@ public class MySharedPreferences {
     private static final String PREF_NAME = "MyAppPreferences";
     private static final String KEY_MY_LIST = "myList";
 
+    private static final String KEY_LAST_ID = "lastID";
+    private static final String KEY_MAIN_CT = "MainCT";
+
     private SharedPreferences sharedPreferences;
     SharedPreferences.Editor editPref;
     private Gson gson;
@@ -38,6 +41,41 @@ public class MySharedPreferences {
     public void clearMyList() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
+        editor.apply();
+    }
+
+    public void saveLastId(int lastID) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_LAST_ID, lastID);
+        editor.apply();
+    }
+
+    public void saveMainCt(int MainID) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_MAIN_CT, MainID);
+        editor.apply();
+    }
+
+    public int getMainCategory() {
+        int MainCategory;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        MainCategory = sharedPreferences.getInt(KEY_MAIN_CT, 1);
+        editor.apply();
+        return MainCategory;
+    }
+
+    public int getLastId() {
+        int LastID;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        LastID = sharedPreferences.getInt(KEY_LAST_ID, 1);
+        editor.apply();
+
+        return LastID;
+    }
+
+    public void removeDataFromSharedPreferences(int itemId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("item_" + getLastId()); // Adjust the key based on your data
         editor.apply();
     }
 
