@@ -24,6 +24,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
     MyListAdapter ItemsAdapter;
 
     ItemInfo itemInfo;
+    private boolean isDeleteVisible = false;
 
     Expenses expenses;
     public MyListAdapter(Context context, ArrayList<ItemInfo> itemList)
@@ -35,6 +36,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
     public void setDataList(ArrayList<ItemInfo> itemList)
     {
         this._itemList = itemList;
+    }
+
+    public void showDeleteIcon(){
+        isDeleteVisible = true;
+
     }
 
     @NonNull
@@ -55,11 +61,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
                 - notify data set change
                  */
 
-                myStorage.removeDataFromSharedPreferences(itemInfo.getId());
-                List<ItemInfo> getItem = myStorage.getMyList();
-                getItem.clear();
-                expenses.removeItemInfo(itemInfo);
-                ItemsAdapter.notifyDataSetChanged();
+//                myStorage.removeDataFromSharedPreferences(itemInfo.getId());
+//                List<ItemInfo> getItem = myStorage.getMyList();
+//                getItem.clear();
+//                expenses.removeItemInfo(itemInfo);
+//                ItemsAdapter.notifyDataSetChanged();
                 return true;
             }
         });
@@ -74,6 +80,23 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         ItemInfo itemInfo = _itemList.get(position);
         holder.itemNameTextView.setText(itemInfo.getItemName());
         holder.priceTextView.setText(Integer.toString(itemInfo.getPrice()));
+//        if (isDeleteVisible){
+//            holder.iconView.setVisibility(View.VISIBLE);
+//            Log.v("Log", "Passed Visible");
+//            holder.iconView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.v("Click", "Click" + getAdapterPosition();
+//                    myStorage = new MySharedPreferences(v.getContext());
+//                    myStorage.removeDataFromSharedPreferences(itemInfo);
+//                    ItemsAdapter
+//                }
+//            });
+//        }
+//        else{
+//            holder.iconView.setVisibility(View.GONE);
+//            Log.v("Log", "Passed Gone");
+//        }
     }
 
     @Override

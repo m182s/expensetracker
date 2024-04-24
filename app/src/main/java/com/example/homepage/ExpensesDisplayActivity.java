@@ -92,19 +92,26 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 //        new MySharedPreferences().putString
 
         //delete button
-        removeData = findViewById(R.id.deletelogs);
+        removeData = findViewById(R.id.showdeleteicon);
         removeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myStorage.clearMyList();
-                itemsList.clear();
-                expenses.itemInfoList.clear();
+                ItemsAdapter.showDeleteIcon();
+                recyclerView.setAdapter(null);
+                recyclerView.getRecycledViewPool().clear();
+                recyclerView.setAdapter(ItemsAdapter);
                 ItemsAdapter.notifyDataSetChanged();
-                Log.v("List", "NEW LIST: " + itemsList);
-                CharSequence text = "Data cleared!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(ExpensesDisplayActivity.this, text, duration);
-                toast.show();
+                Log.v("Icon", "Icon added");
+
+//                myStorage.clearMyList();
+//                itemsList.clear();
+//                expenses.itemInfoList.clear();
+//                ItemsAdapter.notifyDataSetChanged();
+//                Log.v("List", "NEW LIST: " + itemsList);
+//                CharSequence text = "Data cleared!";
+//                int duration = Toast.LENGTH_SHORT;
+//                Toast toast = Toast.makeText(ExpensesDisplayActivity.this, text, duration);
+//                toast.show();
 
             }
         });

@@ -73,10 +73,12 @@ public class MySharedPreferences {
         return LastID;
     }
 
-    public void removeDataFromSharedPreferences(int itemId) {
+    public void removeDataFromSharedPreferences(ItemInfo iteminfo) {
+        Expenses expenses = new Expenses(getMyList());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("item_" + getLastId()); // Adjust the key based on your data
-        editor.apply();
+        ItemInfo temp = expenses.searchById(iteminfo.getId());
+        expenses.removeItemInfo(temp);
+        saveMyList(expenses.itemInfoList);
     }
 
     // Method to retrieve a List<MyObject> from SharedPreferences

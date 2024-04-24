@@ -33,7 +33,7 @@ import java.util.Map;
         - Total price (DONE)
         - List estitik (DONE)
         - Delete logs
-        - all categories
+        - all categories (DONE)
 
          */
 

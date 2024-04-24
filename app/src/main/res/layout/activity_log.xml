@@ -95,7 +95,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/deletelogs"
+        android:id="@+id/showdeleteicon"
         android:layout_width="144dp"
         android:layout_height="34dp"
         android:text="Delete"
