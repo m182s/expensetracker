@@ -28,10 +28,8 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
     //ArrayAdapter<ItemInfo> ItemsAdapter;
     MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
-    Expenses expenseTracker, expenses, totalPrice;
-    int newPrice;
+    Expenses expenses;
     MySharedPreferences myStorage;
-
     Button removeData;
 
     @Override
@@ -63,8 +61,10 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
 
-        // first iteration of the total price
-        setTextChange();
+        // total price
+
+
+
         ArrayListCustomization();
 
         // back button
@@ -131,13 +131,18 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
 
     }
 
-    public void setTextChange(){
-//        expenseTracker = new Expenses();
-//        expenseTracker.addItemInfo();
-//        double totalSpent = expenseTracker.calculateTotal();
-//        Log.v("Price", "Total" + totalSpent);
+    public void calculateTotalPrice(){
+        double total = expenses.calculateTotal();
+        textChange.setText("Total Spent: Php " + total);
+        Log.v("Price", "Total: " + total);
     }
-
+    public double calculateCategory() {
+        double price = 0;
+        for (ItemInfo priceList : itemsList) {
+            price += priceList.getPrice();
+        }
+        return price;
+    }
     public void ArrayListCustomization(){
         ExpenseSpinner = findViewById(R.id.spinnerid);
         ArrayList<String> category = new ArrayList<>();
@@ -160,6 +165,9 @@ public class ExpensesDisplayActivity extends AppCompatActivity {
                 itemsList.clear();
                 itemsList.addAll(tmpList);
                 Log.v("List", "NEW LIST: " + tmpList.size());
+                String changeText = "Total Spent: Php " + Double.toString(calculateCategory());
+                textChange = findViewById(R.id.totalamount);
+                textChange.setText(changeText);
                 ItemsAdapter.notifyDataSetChanged();
             }
 

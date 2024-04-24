@@ -116,7 +116,6 @@ public class ItemEntryActivity extends AppCompatActivity {
                         Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
                         myStorage.saveMyList(expenses.itemInfoList);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
-
                         startActivity(intent);
                     }
                 }

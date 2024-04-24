@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Expenses {
     public List<ItemInfo> itemInfoList;
-    public int totalPrice;
 
     // Constructor
     public Expenses() {
@@ -73,11 +72,11 @@ public class Expenses {
 //        expenseList.add(newItem);
 //    }
     public double calculateTotal() {
-        double total = 0;
-        for (ItemInfo item : itemInfoList) {
-            total += item.getPrice();
+        double price = 0;
+        for (ItemInfo priceList : itemInfoList) {
+            price += priceList.getPrice();
         }
-        return total;
+        return price;
     }
 
 
