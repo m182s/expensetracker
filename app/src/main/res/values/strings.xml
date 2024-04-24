@@ -12,4 +12,6 @@
     <string name="expenses">Expenses</string>
     <string name="today_s_total">Today\'s Total</string>
     <string name="add_item">Add Item</string>
+    <string name="additemsearch">Add Item</string>
+    <string name="budget">Budget:</string>
 </resources>

@@ -1,11 +1,14 @@
 package com.example.homepage;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Expenses {
+    private Activity owner;
     public List<ItemInfo> itemInfoList;
 
     public MySharedPreferences myShared;
@@ -58,6 +61,20 @@ public class Expenses {
         return resultList;
     }
 
+    public void deleteById(int itemId) {
+        List<ItemInfo> resultList = new ArrayList<>();
+        for (ItemInfo itemInfo : itemInfoList) {
+            if (itemInfo.getId() == itemId) {
+                resultList.add(itemInfo);
+            }
+        }
+        itemInfoList.removeAll(resultList);
+        CharSequence text = "Item(s) deleted! count:"+resultList.size();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(owner, text, duration);
+        toast.show();
+    }
+
     // Method to search for ItemInfos by remarks
     public List<ItemInfo> searchByRemarks(String remarks) {
         List<ItemInfo> resultList = new ArrayList<>();
@@ -78,5 +95,9 @@ public class Expenses {
     public int getItemsCount()
     {
         return itemInfoList.size();
+    }
+    public void setOwner(Activity act)
+    {
+        owner=act;
     }
 }

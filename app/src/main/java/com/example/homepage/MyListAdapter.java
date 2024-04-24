@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
 {
+    private ExpensesDisplayActivity _ownerActivity;
     private Context _context;
     private ArrayList<ItemInfo> _itemList;
     MySharedPreferences myStorage;
@@ -27,10 +28,11 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
     private boolean isDeleteVisible = false;
 
     Expenses expenses;
-    public MyListAdapter(Context context, ArrayList<ItemInfo> itemList)
+    public MyListAdapter(Context context, ArrayList<ItemInfo> itemList, ExpensesDisplayActivity owner)
     {
         this._context = context;
         this._itemList = itemList;
+        this._ownerActivity = owner;
     }
 
     public void setDataList(ArrayList<ItemInfo> itemList)
@@ -69,7 +71,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
                 return true;
             }
         });
-        return new MyViewHolder(view);
+        return new MyViewHolder(view,_ownerActivity);
     }
 
 
@@ -80,23 +82,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         ItemInfo itemInfo = _itemList.get(position);
         holder.itemNameTextView.setText(itemInfo.getItemName());
         holder.priceTextView.setText(Integer.toString(itemInfo.getPrice()));
-//        if (isDeleteVisible){
-//            holder.iconView.setVisibility(View.VISIBLE);
-//            Log.v("Log", "Passed Visible");
-//            holder.iconView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.v("Click", "Click" + getAdapterPosition();
-//                    myStorage = new MySharedPreferences(v.getContext());
-//                    myStorage.removeDataFromSharedPreferences(itemInfo);
-//                    ItemsAdapter
-//                }
-//            });
-//        }
-//        else{
-//            holder.iconView.setVisibility(View.GONE);
-//            Log.v("Log", "Passed Gone");
-//        }
+        if (isDeleteVisible){
+            holder.iconView.setVisibility(View.VISIBLE);
+            Log.v("Log", "Passed Visible");
+
+        }
+        else{
+            holder.iconView.setVisibility(View.GONE);
+            Log.v("Log", "Passed Gone");
+        }
     }
 
     @Override
