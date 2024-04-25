@@ -28,7 +28,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
     RecyclerView recyclerView;
     TextView textChange;
     ArrayList<ItemInfo> itemsList;
-    //ArrayAdapter<ItemInfo> ItemsAdapter;
+
     MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
     Expenses expenses;
@@ -161,7 +161,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
 
     }
 
-    public void calculateTotalPrice(){
+    public void calculateTotalPrice() {
         String changeText = "Total Spent: Php " + Double.toString(calculateCategory());
         textChange = findViewById(R.id.totalamount);
         textChange.setText(changeText);
