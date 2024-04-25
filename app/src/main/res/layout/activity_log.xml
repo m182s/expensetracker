@@ -31,17 +31,18 @@
         android:layout_width="412dp"
         android:layout_height="477dp"
         android:backgroundTint="@color/dum"
-        android:paddingStart="50dp"
-        android:paddingTop="30dp"
-        android:paddingEnd="50dp"
-        android:paddingBottom="60dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
+        android:paddingStart="80dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budgetview"
-        app:layout_constraintVertical_bias="0.282" />
+        app:layout_constraintVertical_bias="0.27" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/budgetview"
@@ -83,19 +84,23 @@
 
         android:layout_width="394dp"
         android:layout_height="169dp"
-        android:layout_marginTop="556dp"
         android:background="@drawable/expenselog_"
         android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.998">
 
         <Button
-            android:id="@+id/showdeleteicon"
+            android:id="@+id/showdeleteiconbutton"
             android:layout_width="144dp"
             android:layout_height="48dp"
             android:layout_marginBottom="72dp"
             android:text="Delete"
+            android:textColor="@color/dum"
+            android:theme="@style/ButtonTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.926"
@@ -107,6 +112,8 @@
             android:layout_height="48dp"
             android:layout_marginBottom="72dp"
             android:text="Delete All"
+            android:textColor="@color/dum"
+            android:theme="@style/ButtonTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.092"
@@ -120,12 +127,11 @@
             android:layout_marginBottom="8dp"
             android:text="Total Spent: Php "
             android:textAlignment="center"
-            android:textColor="@color/dum"
+            android:textColor="@color/white"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/showdeleteicon"
             app:layout_constraintVertical_bias="0.48000002" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

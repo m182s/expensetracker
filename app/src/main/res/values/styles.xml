@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/Mid</item>
 
     </style>
+
+    <style name="ButtonTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/dum</item>
+        <item name="colorAccent">@color/Mid</item>
+
+    </style>
 </resources>

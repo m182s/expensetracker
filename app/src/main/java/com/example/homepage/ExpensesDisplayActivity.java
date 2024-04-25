@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +28,14 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
     RecyclerView recyclerView;
     TextView textChange;
     ArrayList<ItemInfo> itemsList;
-    //ArrayAdapter<ItemInfo> ItemsAdapter;
+
     MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
     Expenses expenses;
     MySharedPreferences myStorage;
     Button removeData;
+
+    private boolean isActive;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -102,12 +105,14 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
 
 // 2. Chain together various setter methods to set the dialog characteristics.
                 builder.setMessage("Are you sure you want to clear all record?")
+
                         .setTitle("Delete All Record")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 myStorage.clearMyList();
                                 reloadFromStorage();
                                 refreshDisplay();
+                                calculateTotalPrice();
 
                             }
                         })
@@ -121,35 +126,45 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
                 // 3. Get the AlertDialog.
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                Button nbutton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                nbutton.setTextColor(Color.BLACK);
+                Button pbutton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                pbutton.setTextColor(Color.BLACK);
 
             }
         });
         //delete button
-        removeData = findViewById(R.id.showdeleteicon);
+        removeData = findViewById(R.id.showdeleteiconbutton);
         removeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ItemsAdapter.showDeleteIcon();
-                refreshDisplay();
-                Log.v("Icon", "Icon added");
-
-//                myStorage.clearMyList();
-//                itemsList.clear();
-//                expenses.itemInfoList.clear();
-//                ItemsAdapter.notifyDataSetChanged();
-//                Log.v("List", "NEW LIST: " + itemsList);
-//                CharSequence text = "Data cleared!";
-//                int duration = Toast.LENGTH_SHORT;
-//                Toast toast = Toast.makeText(ExpensesDisplayActivity.this, text, duration);
-//                toast.show();
-
+                flipSwitch();
+                processClick();
             }
         });
     }
-    public void calculateTotalPrice(){
-        double total = expenses.calculateTotal();
-        textChange.setText("Total Spent: Php " + total);
-        Log.v("Price", "Total: " + total);
+
+    public void flipSwitch (){
+        isActive = !isActive;
+    }
+    public void processClick(){
+        if(isActive){
+            ItemsAdapter.showDeleteIcon();
+            refreshDisplay();
+            Log.v("Icon", "Icon added");
+        }
+        else{
+            ItemsAdapter.removeDeleteIcon();
+            refreshDisplay();
+            Log.v("Icon", "Icon removed");
+        }
+
+    }
+
+    public void calculateTotalPrice() {
+        String changeText = "Total Spent: Php " + Double.toString(calculateCategory());
+        textChange = findViewById(R.id.totalamount);
+        textChange.setText(changeText);
     }
     public double calculateCategory() {
         double price = 0;
@@ -185,9 +200,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
                 itemsList.clear();
                 itemsList.addAll(tmpList);
                 Log.v("List", "NEW LIST: " + tmpList.size());
-                String changeText = "Total Spent: Php " + Double.toString(calculateCategory());
-                textChange = findViewById(R.id.totalamount);
-                textChange.setText(changeText);
+                calculateTotalPrice();
                 ItemsAdapter.notifyDataSetChanged();
 
             }
@@ -205,6 +218,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
         ItemInfo delItemInfo= itemsList.get(position);
         itemsList.remove(position);
         expenses.itemInfoList = myStorage.removeDataFromSharedPreferences(delItemInfo);
+        calculateTotalPrice();
         refreshDisplay();
     }
 

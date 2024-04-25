@@ -44,6 +44,10 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         isDeleteVisible = true;
 
     }
+    public void removeDeleteIcon(){
+        isDeleteVisible = false;
+
+    }
 
     @NonNull
     @Override
@@ -54,20 +58,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                /*
-                - get the id of the item based on what was clicked
-                - search item in sharedpref
-                - delete in itemslist
-                - delete in expenses
-                - delete in sharedpref
-                - notify data set change
-                 */
 
-//                myStorage.removeDataFromSharedPreferences(itemInfo.getId());
-//                List<ItemInfo> getItem = myStorage.getMyList();
-//                getItem.clear();
-//                expenses.removeItemInfo(itemInfo);
-//                ItemsAdapter.notifyDataSetChanged();
                 return true;
             }
         });
@@ -82,12 +73,13 @@ public class MyListAdapter extends RecyclerView.Adapter<MyViewHolder>
         ItemInfo itemInfo = _itemList.get(position);
         holder.itemNameTextView.setText(itemInfo.getItemName());
         holder.priceTextView.setText(Integer.toString(itemInfo.getPrice()));
+
         if (isDeleteVisible){
             holder.iconView.setVisibility(View.VISIBLE);
             Log.v("Log", "Passed Visible");
 
         }
-        else{
+        else {
             holder.iconView.setVisibility(View.GONE);
             Log.v("Log", "Passed Gone");
         }

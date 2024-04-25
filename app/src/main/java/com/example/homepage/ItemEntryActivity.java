@@ -27,16 +27,23 @@ import com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity;
 /*TODO
         - Listview (DONE)
         - Mapping (DONE)
+        - recyclerView (DONE)
         - back button (DONE)
         - Add more than one input (DONE)
         - Try again after failed attempt (DONE)
         - rewrite code into functions for simplicity (DONE)
+        - sharedPreferences (DONE)
+        - pick a category (DONE)
         - Dropdown for the different categories (DONE)
         - Filter through category (DONE)
-        - Total price (DONE)
+        - Show all items when in allCategory (DONE)
         - List estitik (DONE)
-        - Delete logs
-        - all categories (DONE)
+        - totalPrice (DONE)
+        - Delete and deleteall button (DONE)
+        - Change price when itemDeleted (DONE)
+        - Set budget
+        - change textColor when budget exceeds
+        - Adjust code based on Joji's commit
 
          */
 
@@ -124,7 +131,6 @@ public class ItemEntryActivity extends AppCompatActivity {
                         int lastID = myStorage.getLastId();
                         ItemInfo itemInfo = new ItemInfo(lastID, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
                         expenses.addItemInfo(itemInfo);
-                        Log.v("HiHi","now: "+ LocalDateTime.now()+" Sample: " + expenses.searchById(1).toString());
                         myStorage.saveMyList(expenses.itemInfoList);
                         myStorage.saveLastId(lastID + 1);
                         Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
