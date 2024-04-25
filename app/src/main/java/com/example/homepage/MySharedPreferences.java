@@ -20,7 +20,9 @@ public class MySharedPreferences {
     private static final String KEY_LAST_ID = "lastID";
     private static final String KEY_MAIN_CT = "MainCT";
 
-    private SharedPreferences sharedPreferences;
+    private static final String KEY_BUDGET = "getBudget";
+
+    private final SharedPreferences sharedPreferences;
     SharedPreferences.Editor editPref;
     private Gson gson;
 
@@ -66,9 +68,9 @@ public class MySharedPreferences {
 
     public int getLastId() {
         int LastID;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
         LastID = sharedPreferences.getInt(KEY_LAST_ID, 1);
-        editor.apply();
+        //editor.apply();
 
         return LastID;
     }
@@ -93,5 +95,22 @@ public class MySharedPreferences {
             return gson.fromJson(json, type);
         }
         return new ArrayList<>(); // Return empty list if no data found
+    }
+
+    public void saveMyBudget(int saveBudget){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_BUDGET, saveBudget);
+        editor.apply();
+        Log.v("Save", "SAVED" +String.valueOf(saveBudget));
+    }
+
+    public int getMyBudget(){
+        int getBudget = 0;
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        getBudget = sharedPreferences.getInt(KEY_BUDGET, getBudget);
+        //editor.apply();
+        Log.v("Save", "GET" +String.valueOf(getBudget));
+        return getBudget;
+
     }
 }
