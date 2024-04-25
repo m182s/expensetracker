@@ -479,6 +479,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                 EnterPhotoTaking();
                 break;
             default:
+                this.finish();
                 break;
         }
         Log.d(TAG, mStatus.toString());

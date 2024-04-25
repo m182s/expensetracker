@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    id 'com.android.library'
+    //alias(libs.plugins.androidApplication)
 }
 
 android {
@@ -7,8 +8,8 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.google.android.gms.samples.vision.ocrreader"
-        minSdk 34
+        //applicationId "com.google.android.gms.samples.vision.ocrreader"
+        minSdk 31
         targetSdk 34
         versionCode 1
         versionName "1.0"

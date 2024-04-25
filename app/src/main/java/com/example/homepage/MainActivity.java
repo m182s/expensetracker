@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
 public class MainActivity extends AppCompatActivity {
     public Expenses _itemLists;
 
@@ -33,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         _itemLists = new Expenses();
 
-        ImageButton search = findViewById(R.id.imageButton);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ItemEntryActivity.class);
-                startActivity(intent);
-            }
-        });
+//        ImageButton search = findViewById(R.id.main);
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, ItemEntryActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         LinearLayout layout = findViewById(R.id.layoutExpenses);
         layout.setOnClickListener(new View.OnClickListener() {
