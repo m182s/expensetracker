@@ -115,13 +115,16 @@
         android:padding="2dp">
 
         <ImageView
+            android:id="@+id/scanreceipt"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_margin="1dp"
             android:src="@drawable/scan_ic"
             android:padding="1dp"
             android:contentDescription="@string/app_name"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:onClick="ScanReceipt"/>
+
 
         <TextView
             android:layout_width="wrap_content"
