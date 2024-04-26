@@ -91,7 +91,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
                 // 1. Instantiate an AlertDialog.Builder with its constructor.
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-// 2. Chain together various setter methods to set the dialog characteristics.
+                // 2. Chain together various setter methods to set the dialog characteristics.
                 builder.setMessage("Are you sure you want to clear all record?")
 
                         .setTitle("Delete All Record")
@@ -101,7 +101,6 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
                                 reloadFromStorage();
                                 refreshDisplay();
                                 calculateTotalPrice();
-
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

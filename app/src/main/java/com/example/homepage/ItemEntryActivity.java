@@ -175,12 +175,6 @@ public class ItemEntryActivity extends AppCompatActivity {
     }
     public void checkBothEnterPressed() {
         if (_isItemTrue && _ispriceTrue) {
-//            if (_itemName.isEmpty()) {
-//                CharSequence text = "Enter the name of what you want to add to your budget!";
-//                int duration = Toast.LENGTH_SHORT;
-//                Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
-//                toast.show();
-//            }
             // Adds data
             CharSequence textFinal = "Item added!";
             int durationFinal = Toast.LENGTH_SHORT;
