@@ -82,8 +82,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:layout_width="394dp"
-        android:layout_height="169dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
         android:background="@drawable/expenselog_"
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +91,7 @@
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998">
+        app:layout_constraintVertical_bias="1">
 
         <Button
             android:id="@+id/showdeleteiconbutton"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="8dp"
-            android:text="Total Spent: Php "
+            android:text="Total Spent: Php 0"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20dp"

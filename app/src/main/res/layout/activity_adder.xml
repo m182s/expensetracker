@@ -1,82 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header_bkg"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
+            <ImageButton
+                android:id="@+id/homeId"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/backbtn"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/arrow_back"
+                android:contentDescription="@string/app_name"
+                tools:layout_editor_absoluteX="219dp"
+                tools:layout_editor_absoluteY="14dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dropdown"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="58dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/light"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="10dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Spinner
+                        android:id="@+id/selectcategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:backgroundTintMode="@color/white"
+                        android:layout_marginTop="20dp"
+                        android:layout_centerInParent="true"
+                        android:theme="@style/mySpinnerItemStyle">
+                    </Spinner>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:id="@+id/logId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/backbtn"
+                android:contentDescription="@string/app_name"
+                android:scaleX="-1"
+                android:layout_marginStart="370dp"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/arrow_back"
+                app:tint="@color/white"
+                tools:layout_editor_absoluteX="219dp"
+                tools:layout_editor_absoluteY="14dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/itemId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_width="343dp"
+        android:layout_height="40dp"
         android:ems="10"
-        android:hint="Item"
+        android:layout_marginTop="20dp"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="Item"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="106dp"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/priceId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="343dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
         android:ems="10"
-        android:hint="Price"
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:digits=".0123456789"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemId" />
+        android:hint="Price"
+        android:digits="0123456789"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="106dp"
+        tools:ignore="LabelFor" />
 
-    <Button
-        android:id="@+id/homeId"
-        android:layout_width="168dp"
-        android:layout_height="52dp"
-        android:text="Back to Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.889" />
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="2dp">
 
-    <Button
-        android:id="@+id/addId"
-        android:layout_width="170dp"
-        android:layout_height="57dp"
-        android:text="Add Item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_margin="1dp"
+            android:src="@drawable/scan_ic"
+            android:padding="1dp"
+            android:contentDescription="@string/app_name"
+            android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/logId"
-        android:layout_width="180dp"
-        android:layout_height="52dp"
-        android:text="Check Expenses"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginStart="34dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/selectcategory"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/itemId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:text="History"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/dum"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="7dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caviar with 24k Gold Flakes"
+            android:textColor="@color/white"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHP 600              Food"
+            android:textColor="@color/white"
+            android:textSize="10dp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingStart="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Rolls Royce Spectre">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:text="PHP 5000              Travel">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingStart="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Chanel Classic Bag">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:text="PHP 3500              Fashion">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/scan_box"
+        android:backgroundTint="@color/dum"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        android:paddingStart="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="GeForce RTX 4090">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:text="PHP 2100              Others">
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

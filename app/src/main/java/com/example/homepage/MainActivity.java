@@ -45,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
         currentTotal = _itemLists.calculateTotal();
         totalToday.setText("Today's Total: PHP " + String.valueOf(currentTotal));
         _targetBudget = _myStorage.getMyBudget();
-        budgetText.setText("Today's Budget: PHP " + String.valueOf(_targetBudget));
+        budgetText.setText("Budget: PHP " + String.valueOf(_targetBudget));
         Log.v("budget", "BUDGET:" + _targetBudget);
 
-        LinearLayout totalcolor = findViewById(R.id.totalbg);
+        TextView totalcolor = findViewById(R.id.todaystotal);
         if(currentTotal > _targetBudget){
-            totalcolor.setBackgroundColor(Color.RED);
+            totalcolor.setTextColor(Color.RED);
         }
         else{
-            totalcolor.setBackgroundColor(0x29335C);
+            totalcolor.setTextColor(Color.WHITE);
         }
     }
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                event.getKeyCode();
 //                Log.v("Budget", "Budget changed to " + keyCode);
-                if(keyCode == 66) {
+                if(keyCode == 13 || keyCode == 66) {
                     String budget = budgetChange.getText().toString();
                     changeBudget = Integer.parseInt(budget);
                     _myStorage.saveMyBudget(changeBudget);
@@ -113,4 +113,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-

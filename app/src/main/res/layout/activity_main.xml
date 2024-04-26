@@ -174,7 +174,7 @@
                         android:layout_marginTop="35dp"
                         android:text="Today's Total: PHP "
                         android:textColor="@color/white"
-                        android:textSize="17sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -205,7 +205,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/budget"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -215,7 +215,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="12dp"
                         android:hint="Set Budget"
-                        android:digits=".0123456789"
+                        android:digits="0123456789"
                         android:text=""
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"

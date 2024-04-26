@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/light</item>
         <item name="colorPrimaryDark">@color/dum</item>
         <item name="colorAccent">@color/Mid</item>
-
+        <item name="spinnerStyle">@style/mySpinnerItemStyle</item>
     </style>
 
     <style name="ButtonTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -16,4 +16,12 @@
         <item name="colorAccent">@color/Mid</item>
 
     </style>
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

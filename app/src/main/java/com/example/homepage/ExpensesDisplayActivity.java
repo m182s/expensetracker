@@ -32,6 +32,8 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
     MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
     Expenses expenses;
+
+    int _targetBudget;
     MySharedPreferences myStorage;
     Button removeData;
 
@@ -40,19 +42,11 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-        // retrieve the JSON String from the Intent
-//        setIntent(intent);
-//        String jsonData = getIntent().getStringExtra("receiveKey");
-
-        // increases the total price based on the user's input for the subsequent attempts
-        //setTextChange();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //myStorage = new MySharedPreferences(getApplicationContext());
         expenses.itemInfoList.clear();
         expenses.itemInfoList.addAll((List<ItemInfo>) myStorage.getMyList());
         itemsList.clear();
@@ -60,6 +54,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
         ItemsAdapter.setDataList(itemsList);
         ItemsAdapter.notifyDataSetChanged();
         Log.v("List", "NEW LIST: " + itemsList);
+        reloadData();
     }
 
     @Override
@@ -86,13 +81,6 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
         ItemsAdapter = new MyListAdapter(getApplicationContext(),itemsList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(ItemsAdapter);
-
-//        List<ItemInfo> assignCat = expenses.mainCategory(0);
-//        itemsList.clear();
-//        itemsList.addAll(assignCat);
-//        ItemsAdapter.notifyDataSetChanged();
-
-//        new MySharedPreferences().putString
 
         Button removeAllButton  = findViewById(R.id.deleteall);
         removeAllButton.setOnClickListener(new View.OnClickListener()
@@ -224,6 +212,7 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
 
     public void refreshDisplay()
     {
+        reloadData();
         recyclerView.setAdapter(null);
         recyclerView.getRecycledViewPool().clear();
         recyclerView.setAdapter(ItemsAdapter);
@@ -235,5 +224,21 @@ public class ExpensesDisplayActivity extends AppCompatActivity implements Delete
         expenses = new Expenses((List<ItemInfo>) myStorage.getMyList());
         itemsList.clear();
         itemsList.addAll(expenses.itemInfoList);
+    }
+
+    public void reloadData(){
+        double currentTotal = 0;
+        textChange = findViewById(R.id.totalamount);
+        expenses = new Expenses(myStorage.getMyList());
+        currentTotal = expenses.calculateTotal();
+        textChange.setText("Today's Total: PHP " + String.valueOf(currentTotal));
+        _targetBudget = myStorage.getMyBudget();
+
+        if(currentTotal > _targetBudget){
+            textChange.setTextColor(Color.RED);
+        }
+        else{
+            textChange.setTextColor(Color.WHITE);
+        }
     }
 }

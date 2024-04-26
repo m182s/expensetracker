@@ -7,9 +7,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,10 +50,16 @@ import java.util.Map;
 
 public class ItemEntryActivity extends AppCompatActivity {
 
-    private TextView item, price;
-    private Button add, log, home;
+    private EditText item, price;
+    private ImageButton log, home;
     private ArrayList<Map<String, String>> itemsList;
     int sumPesos;
+    boolean _isItemTrue = false;
+    boolean _ispriceTrue = false;
+
+    String _itemPrice;
+    String _itemName;
+
     MyListAdapter ItemsAdapter;
     Spinner ExpenseSpinner;
 
@@ -74,62 +84,68 @@ public class ItemEntryActivity extends AppCompatActivity {
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category);
         ExpenseSpinner.setAdapter(categoryAdapter);
 
-
-        add.setOnClickListener(new View.OnClickListener() {
+        item.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-
-                String itemName = item.getText().toString();
-                String itemPrice = price.getText().toString();
-
-                if (itemPrice.isEmpty()) {
-                    CharSequence text = "Enter a price!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
-                    toast.show();
-                }
-                else {
-                    sumPesos = Integer.parseInt(itemPrice);
-
-                    Map<String, String> item = new HashMap<>();
-
-                    if (sumPesos > 100000) { // Try again if not within the number range
-                        CharSequence text = "This program only accepts until Php100k";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
-                        toast.show();
-                    } else if (sumPesos <= 0) {
-                        CharSequence text = "Enter a price!";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
-                        toast.show();
-
-                    } else if (itemName.isEmpty()) {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == 13))) {
+                    _itemName = item.getText().toString();
+                    Log.v("Name", "NAME: " + _itemName);
+                    if (_itemName.isEmpty()) {
                         CharSequence text = "Enter the name of what you want to add to your budget!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
-                    } else {
-                        item.put(itemName, String.valueOf(sumPesos));
-                        itemsList.add(item);
-                        CharSequence text = "Item added!";
+                    }else {
+                        _isItemTrue = true;
+                        Log.v("ITEM", "Item State: " + _isItemTrue);
+                        checkBothEnterPressed();
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+        });
+        price.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == 13))) {
+                    _itemPrice = price.getText().toString();
+                    Log.v("Price", "PRICE: " + _itemName);
+                    if (_itemPrice.isEmpty()) {
+                        CharSequence text = "Enter a price!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
                         toast.show();
-                        // Adds data
-                        MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
-                        Expenses expenses = new Expenses(myStorage.getMyList());
-                        Log.v("Spinner", "Input: " + ExpenseSpinner.getSelectedItemPosition());
-                        int lastID = myStorage.getLastId();
-                        ItemInfo itemInfo = new ItemInfo(lastID, itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
-                        expenses.addItemInfo(itemInfo);
-                        myStorage.saveMyList(expenses.itemInfoList);
-                        myStorage.saveLastId(lastID + 1);
-                        Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
+                    } else {
+                        sumPesos = Integer.parseInt(_itemPrice);
+                        Map<String, String> item = new HashMap<>();
+
+                        if (sumPesos > 100000) { // Try again if not within the number range
+                            CharSequence text = "This program only accepts until Php100k";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
+                            toast.show();
+                        } else if (sumPesos <= 0) {
+                            CharSequence text = "Enter a valid price!";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
+                            toast.show();
+                        } else {
+                            _ispriceTrue = true;
+                            Log.v("ITEM", "Item State: " + _ispriceTrue);
+                            checkBothEnterPressed();
+                            Log.v("ITEM", "itempressreached");
+                            item.put(_itemName, String.valueOf(sumPesos));
+                            itemsList.add(item);
+                            return true;
+                        }
                     }
                 }
+                return false;
             }
         });
+
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,10 +155,12 @@ public class ItemEntryActivity extends AppCompatActivity {
                 });
             }
         });
+
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                findViewById(R.id.homeId).setOnClickListener(v -> {
+            public void onClick(View v) {
+                findViewById(R.id.homeId).setOnClickListener(view -> {
                     Intent intent = new Intent(ItemEntryActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
@@ -152,8 +170,37 @@ public class ItemEntryActivity extends AppCompatActivity {
     public void storeIdVar(){
         item = findViewById(R.id.itemId);
         price = findViewById(R.id.priceId);
-        add = findViewById(R.id.addId);
         log = findViewById(R.id.logId);
         home = findViewById(R.id.homeId);
     }
+    public void checkBothEnterPressed() {
+        if (_isItemTrue && _ispriceTrue) {
+//            if (_itemName.isEmpty()) {
+//                CharSequence text = "Enter the name of what you want to add to your budget!";
+//                int duration = Toast.LENGTH_SHORT;
+//                Toast toast = Toast.makeText(ItemEntryActivity.this, text, duration);
+//                toast.show();
+//            }
+            // Adds data
+            CharSequence textFinal = "Item added!";
+            int durationFinal = Toast.LENGTH_SHORT;
+            Toast toastFinal = Toast.makeText(ItemEntryActivity.this, textFinal, durationFinal);
+            toastFinal.show();
+            MySharedPreferences myStorage = new MySharedPreferences(getApplicationContext());
+            Expenses expenses = new Expenses(myStorage.getMyList());
+            Log.v("Spinner", "Input: " + ExpenseSpinner.getSelectedItemPosition());
+            int lastID = myStorage.getLastId();
+            ItemInfo itemInfo = new ItemInfo(lastID, _itemName, sumPesos, LocalDateTime.now().toString(), "Sample", ExpenseSpinner.getSelectedItemPosition() + 1);
+            expenses.addItemInfo(itemInfo);
+            myStorage.saveMyList(expenses.itemInfoList);
+            myStorage.saveLastId(lastID + 1);
+            Intent intent = new Intent(ItemEntryActivity.this, ExpensesDisplayActivity.class);
+            Log.v("ITEM", "Item State: " + _isItemTrue);
+            Log.v("ITEM", "Item State: " + _ispriceTrue);
+            _ispriceTrue = false;
+            _isItemTrue = false;
+        }
+    }
 }
+
+
