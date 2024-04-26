@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity;
+
+
 /*TODO
         - Listview (DONE)
         - Mapping (DONE)
@@ -65,6 +68,11 @@ public class ItemEntryActivity extends AppCompatActivity {
 
     MySharedPreferences myStorage;
 
+    public void ScanReceipt(View v)
+    {
+        Intent intent = new Intent(ItemEntryActivity.this, OcrCaptureActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
