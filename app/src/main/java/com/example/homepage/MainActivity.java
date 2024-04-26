@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -94,22 +95,35 @@ public class MainActivity extends AppCompatActivity {
 
         budgetChange = findViewById(R.id.budgetchange);
         budgetText = findViewById(R.id.budgettext);
-        budgetChange.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        Button setBudget = findViewById(R.id.setbudget);
 
-//                event.getKeyCode();
-//                Log.v("Budget", "Budget changed to " + keyCode);
-                if(keyCode == 13 || keyCode == 66) {
-                    String budget = budgetChange.getText().toString();
-                    changeBudget = Integer.parseInt(budget);
-                    _myStorage.saveMyBudget(changeBudget);
-                    budgetText.setText("Today's Budget: PHP " + budget);
-                    reloadData();
-                }
-                return false;
+        setBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String budget = budgetChange.getText().toString();
+                changeBudget = Integer.parseInt(budget);
+                _myStorage.saveMyBudget(changeBudget);
+                budgetText.setText("Today's Budget: PHP " + budget);
+                reloadData();
             }
         });
-
+//        budgetChange.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+////                event.getKeyCode();
+////                Log.v("Budget", "Budget changed to " + keyCode);
+//                if(event.getAction() == KeyEvent.ACTION_DOWN) {
+//                    if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+//                        String budget = budgetChange.getText().toString();
+//                        changeBudget = Integer.parseInt(budget);
+//                        _myStorage.saveMyBudget(changeBudget);
+//                        budgetText.setText("Today's Budget: PHP " + budget);
+//                        reloadData();
+//                    }
+//                }
+//                return false;
+//            }
+//        });
     }
 }

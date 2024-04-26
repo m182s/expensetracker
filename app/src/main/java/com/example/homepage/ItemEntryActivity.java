@@ -42,9 +42,9 @@ import java.util.Map;
         - totalPrice (DONE)
         - Delete and deleteall button (DONE)
         - Change price when itemDeleted (DONE)
-        - Set budget
-        - change textColor when budget exceeds
-        - Adjust code based on Joji's commit
+        - Set budget (DONE)
+        - change textColor when budget exceeds (DONE)
+        - Adjust code based on Joji's commit (DONE)
 
          */
 
