@@ -27,7 +27,7 @@
         android:ems="10"
         android:hint="Price"
         android:inputType="text"
-        android:digits=".0123456789"
+        android:digits="0123456789"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemId" />
@@ -42,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.805" />
+        app:layout_constraintVertical_bias="0.889" />
 
     <Button
         android:id="@+id/addId"
@@ -66,7 +66,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.696" />
+        app:layout_constraintVertical_bias="0.74" />
 
     <Spinner
         android:id="@+id/selectcategory"
@@ -77,21 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/scanreceipt"
-        android:layout_width="165dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="ScanReceipt"
-        android:text="Scan Receipt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
